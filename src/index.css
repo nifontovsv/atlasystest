@@ -1,0 +1,28 @@
+@import 'tailwindcss';
+
+body {
+	background-color: #161a26;
+	color: white;
+	margin: 20px;
+}
+
+@theme {
+	--color-regal-blue: rgba(71, 122, 204, 0.2);
+	--color-regal-blue-hover: #38445c;
+	--color-blue-light: #bcd0f0;
+	--color-blue-light-hover: rgb(188, 208, 240, 0.8);
+	--color-regal-red: rgba(243, 47, 47, 0.4);
+	--color-regal-red-hover: rgba(243, 47, 47, 0.3);
+	--color-white-20: rgba(255, 255, 255, 0.2);
+	--color-white-20-hover: rgba(255, 255, 255, 0.1);
+}
+
+@layer utilities {
+	.width-input {
+		width: 18.056vw;
+	}
+
+	.width-calls {
+		width: 9.583vw;
+	}
+}
