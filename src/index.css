@@ -15,6 +15,10 @@ body {
 	--color-regal-red-hover: rgba(243, 47, 47, 0.3);
 	--color-white-20: rgba(255, 255, 255, 0.2);
 	--color-white-20-hover: rgba(255, 255, 255, 0.1);
+	--color-red: #ca2e2e;
+	--color-green-base: #27454c;
+	--color-green-base-hover: #385459;
+	--color-green-hover: rgba(255, 255, 255, 0.08);
 }
 
 @layer utilities {
@@ -24,5 +28,13 @@ body {
 
 	.width-calls {
 		width: 9.583vw;
+	}
+
+	.cursor-hover {
+		cursor: url('/src/assets/cursor.cur'), auto;
+	}
+
+	.cursor-click {
+		cursor: url('/src/assets/cursorclick.cur'), auto;
 	}
 }
