@@ -19,6 +19,7 @@ body {
 	--color-green-base: #27454c;
 	--color-green-base-hover: #385459;
 	--color-green-hover: rgba(255, 255, 255, 0.08);
+	--color-green-light: #bcf0de;
 }
 
 @layer utilities {

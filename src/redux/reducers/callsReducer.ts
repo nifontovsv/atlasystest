@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-type Call = {
+export type Call = {
 	id: string
 	date: string
 	time: string
 	responsible: string
-	type: string
-	priority: string
+	type: 'Входящий' | 'Исходящий'
+	priority: 'Обычный' | 'Срочный'
 }
 
 interface CallState {
@@ -30,9 +30,13 @@ const callsSlice = createSlice({
 		removeCall: (state, action: PayloadAction<string>) => {
 			state.calls = state.calls.filter((call) => call.id !== action.payload)
 		},
-		updateCallField: (
-			state,
-			action: PayloadAction<{ id: string; field: keyof Call; value: string }>
+		updateCallField: <K extends keyof Call>(
+			state: CallState,
+			action: PayloadAction<{
+				id: string
+				field: K
+				value: Call[K]
+			}>
 		) => {
 			const call = state.calls.find((c) => c.id === action.payload.id)
 			if (call) {
