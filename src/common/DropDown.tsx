@@ -1,11 +1,19 @@
 import { useEffect, useRef, useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
+import { useAppDispatch } from '../redux/store/store'
+import { updateCallField } from '../redux/reducers/callsReducer'
 
 type DropDownProps<T extends string> = {
+	id: string
 	options: T[]
 	initial: T
 }
-function DropDown<T extends string>({ options, initial }: DropDownProps<T>) {
+function DropDown<T extends string>({
+	id,
+	options,
+	initial,
+	field,
+}: DropDownProps<T> & { field: 'type' | 'priority' }) {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const [select, setSelect] = useState<T>(initial)
 	const dropDownRef = useRef<HTMLDivElement>(null)
@@ -40,9 +48,11 @@ function DropDown<T extends string>({ options, initial }: DropDownProps<T>) {
 		}
 	}
 
+	const dispatch = useAppDispatch()
+
 	return (
 		<div
-			className={`relative width-calls h-fit flex justify-center items-center gap-2 justify-self-end text-[14px] text-black py-1 px-4 rounded-full select-none ${colorChange(
+			className={`relative sm:text-[12px] width-calls h-fit flex justify-center hover:bg-white-20 items-center gap-2 justify-self-end text-[14px] text-black py-1 px-4 rounded-full select-none ${colorChange(
 				select
 			)}`}
 			ref={dropDownRef}
@@ -63,6 +73,13 @@ function DropDown<T extends string>({ options, initial }: DropDownProps<T>) {
 								onClick={() => {
 									setSelect(option)
 									setIsOpen(false)
+									dispatch(
+										updateCallField({
+											id: id,
+											field: field,
+											value: option,
+										})
+									)
 								}}
 							>
 								<span

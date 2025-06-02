@@ -4,6 +4,7 @@ body {
 	background-color: #161a26;
 	color: white;
 	margin: 20px;
+	user-select: none;
 }
 
 @theme {

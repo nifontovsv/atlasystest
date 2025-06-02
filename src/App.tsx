@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { IoIosArrowDown } from 'react-icons/io'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { ClickableBlock } from './common/ClickableBlock'
 import DatePicker from 'react-datepicker'
@@ -40,6 +39,12 @@ function App() {
 	const calls = useAppSelector((state) => state.calls.calls)
 	console.log(calls)
 
+	useEffect(() => {
+		if (calls.length > 0) {
+			localStorage.setItem('calls', JSON.stringify(calls))
+		}
+	}, [calls])
+
 	const handleAdd = () => {
 		const now = new Date()
 		dispatch(
@@ -78,7 +83,7 @@ function App() {
 				{calls.map((call, index) => (
 					<ClickableBlock key={index}>
 						<div className='mx-6 relative'>
-							<div className='group grid grid-cols-4 items-center hover:bg-regal-blue-hover  bg-regal-blue rounded-full py-4 px-12'>
+							<div className='group grid grid-cols-4 items-center hover:bg-regal-blue-hover  bg-regal-blue rounded-full py-4 px-12 select-none'>
 								<div className='w-fit h-fit py-3 px-6 hover:bg-green-hover hover:rounded-full flex flex-col items-center'>
 									<p className='text-4xl'>
 										{format(new Date(call.date), 'HH:mm')}
@@ -106,12 +111,16 @@ function App() {
 								</div>
 								<InputName id={call.id} responsible={call.responsible} />
 								<DropDown<Call['type']>
+									id={call.id}
 									options={['Исходящий', 'Входящий']}
-									initial='Исходящий'
+									initial={call.type}
+									field='type'
 								/>
 								<DropDown<Call['priority']>
+									id={call.id}
 									options={['Обычный', 'Срочный']}
-									initial='Обычный'
+									initial={call.priority}
+									field='priority'
 								/>
 								<div
 									onClick={() => handleRemove(call.id)}
@@ -123,35 +132,6 @@ function App() {
 						</div>
 					</ClickableBlock>
 				))}
-				{/* <ClickableBlock>
-					<div className='mx-6 relative'>
-						<div className='group grid grid-cols-4 items-center hover:bg-green-base-hover bg-green-base rounded-full py-4 px-12'>
-							<div className='w-fit h-fit py-3 px-6 hover:bg-green-hover hover:rounded-full flex flex-col items-center'>
-								<p className='text-4xl'>12:39</p>
-								<DatePicker
-									selected={startDate}
-									onChange={handleChange}
-									dateFormat='dd.MM.yyyy'
-									className=' rounded-lg w-30 text-[16px] text-[rgba(255,255,255,0.8)] pl-4'
-								/>
-							</div>
-							<div className='width-input justify-self-center h-fit py-2 px-4 border border-solid border-[rgba(255,255,255,0.4)] rounded-full text-[14px] text-[rgba(255,255,255,0.6)]'>
-								Фамилия Имя участника
-							</div>
-							<div className='width-calls h-fit flex items-center gap-2 justify-center justify-self-end bg-blue-light hover:bg-blue-light-hover text-[14px] text-black py-1 px-4 rounded-full'>
-								Входящий
-								<IoIosArrowDown />
-							</div>
-							<div className='w-fit h-fit flex items-center justify-self-end gap-2 bg-regal-red hover:bg-regal-red-hover text-[14px] text-white py-1 px-4 rounded-full'>
-								Срочный
-								<IoIosArrowDown />
-							</div>
-							<div className='absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200  w-9 h-9 rounded-full bg-red flex justify-center items-center'>
-								<RiDeleteBinLine className='w-5 h-5' />
-							</div>
-						</div>
-					</div>
-				</ClickableBlock> */}
 			</div>
 		</div>
 	)
