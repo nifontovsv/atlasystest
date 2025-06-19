@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { ClickableBlock } from './common/ClickableBlock'
 import DatePicker from 'react-datepicker'
@@ -17,6 +17,10 @@ import DropDown from './common/DropDown'
 import InputName from './common/InputName'
 
 function App() {
+	const dispatch = useAppDispatch()
+	const calls = useAppSelector((state) => state.calls.calls)
+	const error = useAppSelector((state) => state.calls.error)
+
 	useEffect(() => {
 		const savedCalls = localStorage.getItem('calls')
 		if (savedCalls) {
@@ -35,10 +39,6 @@ function App() {
 		}
 	}, [])
 
-	const dispatch = useAppDispatch()
-	const calls = useAppSelector((state) => state.calls.calls)
-	console.log(calls)
-
 	useEffect(() => {
 		if (calls.length > 0) {
 			localStorage.setItem('calls', JSON.stringify(calls))
@@ -49,7 +49,6 @@ function App() {
 		const now = new Date()
 		dispatch(
 			addCall({
-				id: uuidv4(),
 				date: now.toISOString(),
 				time: format(now, 'HH:mm'),
 				responsible: 'Фамилия Имя участника',
@@ -65,6 +64,11 @@ function App() {
 
 	return (
 		<div className='h-fit'>
+			{error && (
+				<div className='fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-md z-50'>
+					{error}
+				</div>
+			)}
 			<div className='grid grid-cols-4 justify-items-center'>
 				<span>Дата и время</span>
 				<span>Ответственные</span>
