@@ -38,9 +38,9 @@ const callsSlice = createSlice({
 				const errors: string[] = []
 
 				// 1. Проверка обеденного времени (12:00 - 14:00)
-				if ([12, 13, 14].includes(callTime)) {
+				if ([12, 13].includes(callTime)) {
 					errors.push(
-						'Нельзя назначать звонки в обеденное время (12:00 - 14:00'
+						'Нельзя назначать звонки в обеденное время (12:00 - 14:00)'
 					)
 				}
 
@@ -120,7 +120,7 @@ const callsSlice = createSlice({
 					const errors: string[] = []
 					const callTime = callDateTime.getHours()
 
-					if ([12, 13, 14].includes(callTime)) {
+					if ([12, 13].includes(callTime)) {
 						errors.push(
 							'Нельзя назначать звонки в обеденное время (12:00-14:00)'
 						)
