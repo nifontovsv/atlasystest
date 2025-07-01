@@ -1,19 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { isFriday, isSameDay, parseISO } from 'date-fns'
-
-export type Call = {
-	id: string
-	date: string
-	time: string
-	responsible: string
-	type: 'Входящий' | 'Исходящий'
-	priority: 'Обычный' | 'Срочный'
-}
-
-interface CallState {
-	calls: Call[]
-	error: string | null
-}
+import { Call, CallState } from '../../types/types'
 
 const initialState: CallState = {
 	calls: [],

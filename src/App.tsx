@@ -12,7 +12,7 @@ import {
 } from './redux/reducers/callsReducer'
 import { useAppDispatch, useAppSelector } from './redux/store/store'
 import { v4 as uuidv4 } from 'uuid'
-import { Call } from './redux/reducers/callsReducer'
+import { Call } from './types/types'
 import DropDown from './common/DropDown'
 import InputName from './common/InputName'
 
